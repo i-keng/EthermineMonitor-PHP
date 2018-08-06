@@ -1,0 +1,6 @@
+[submodule "fusioncharts/fusioncharts-dist"]
+	path = fusioncharts/fusioncharts-dist
+	url = https://github.com/fusioncharts/fusioncharts-dist.git
+[submodule "fusioncharts/php-wrapper"]
+	path = fusioncharts/php-wrapper
+	url = https://github.com/fusioncharts/php-wrapper.git

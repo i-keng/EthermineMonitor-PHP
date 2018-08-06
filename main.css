@@ -1,0 +1,105 @@
+/* tags */
+html {
+    background-color: darkslategrey
+}
+h1 {
+    width: 100%; 
+    background-color: lightgrey;
+    margin-bottom: 0;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+h3 {
+    margin: 0;
+}
+a {
+    display: block;
+}
+ul {
+    margin-bottom: .5em;
+}
+
+/* ids */
+#current {
+    width: 100%;
+    min-width: 54em;
+}
+#values {
+    margin-bottom: 0.5em;
+    float: left;
+    width: 100%;
+    min-width: 54em;
+    background-color: lightgrey;
+    box-shadow: .5em .5em #000000;
+}
+#values ul {
+    font-size: 120%;
+}
+#updateTime {
+    float: right;
+    padding-right: 2em;
+}
+
+/* classes */
+.Section {
+    color: rgb(201, 201, 201);
+    float: left; 
+    min-width: 20em;
+    min-height: 38em;
+    font-size: 130%;
+    margin: 0.2em;
+}
+.valueSection {
+    float: left;
+    margin: 0.2em;
+}
+.current {
+    margin-top: 0;
+    margin-bottom: .5em;
+    padding: 1.5em;
+    box-shadow: .5em .5em #000000;
+}
+.values {
+    min-width: 250pt;
+    float: left;
+    padding-left: 2em;
+}
+.chart {
+    width: 100%;
+    min-height: 13em;
+    box-shadow: .5em .5em #000000;
+}
+.valueData {
+    float: left;
+    min-width: 6.5em;
+    padding-left: 30px;
+}
+.valueHeader {
+    margin-bottom: 0.5em;
+    display: block;
+}
+.valueChart {
+    height: 10em;
+    float: left;
+    padding-left: 2em;
+    min-width: 25em;
+}
+.subHeaders {
+    display: block;
+}
+.link {
+    font-size: 75%;
+    color: black;
+}
+
+/* wallets */
+.Michael {
+    background-color: rgb(30, 101, 255);
+}
+.Kevin {
+    background-color: firebrick;
+}
+.Josh {
+    background-color: green;
+}
