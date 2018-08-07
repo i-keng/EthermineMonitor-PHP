@@ -3,36 +3,44 @@
     require_once "loadData.php";
     require_once "renderCharts.php";
 
-    function renderCryptocurrencies(&$values) {
-        $draw = "drawChart";
+    function renderCryptocurrencies(&$conn) {
+        //$draw = "drawChart";
         $convert = "conversionRates";
         $lastUpdate = date(timeFormat, time());
         
-        function conversionRates($values, $index) {
+        function conversionRates($values) {
             $returnString = "";
-            foreach($values[$index]->getValue() as $key => $conversion) {
-                $returnString .= "<li>" . $key . ": " . $conversion . "</li>";   
+            while($value = mysqli_fetch_assoc($values)) {
+                $returnString .= "<li>" . $value["ValueSymbol"] . ": " . rtrim($value["CoinValue"], "0") . "</li>";
             }
             return $returnString;
         }
 
         print("<div id=\"values\">\n");
 
-        foreach($values as $index => $coinValue) {
-            $coin = $coinValue->getCoin();
-            $value = $coinValue->getValue();
+        if($coinResult = mysqli_query($conn, "SELECT * FROM Coins")) {
+            while($coin = mysqli_fetch_assoc($coinResult)) {
+                if($valueResults = mysqli_query($conn,
+                        "SELECT * 
+                        FROM CoinValues 
+                        WHERE Coin_id = '$coin[Coin_id]'"
+                    )) {
+                    $coinName = $coin["Coin"];
+                    
+                    print <<< VALUES
 
-            print <<< VALUES
-
-            <div class="valueSection" id="{$coin}Section">
-                <ul class="valueData">
-                    <h3 class="valueHeader">1 $coin = </h3>
-                    {$convert($values, $index)}
-                </ul>
-                <div class="valueChart" id="$coin"></div>
-            </div>
+                    <div class="valueSection" id="{$coinName}Section">
+                        <ul class="valueData">
+                            <h3 class="valueHeader">1 $coinName = </h3>
+                            {$convert($valueResults)}
+                        </ul>
+                        <div class="valueChart" id="$coinName"></div>
+                    </div>
 VALUES;
-            renderCryptoChart($coinValue);
+                    //renderCryptoChart($coinValue);
+
+                }
+            }
         }
 
         print <<< TIME

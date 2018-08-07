@@ -57,7 +57,7 @@
     //$data->loadData();
     //$wallets = $data->getWallets();
     //$values = $data->getValues();
-    //renderCryptocurrencies($values);
+    renderCryptocurrencies($conn);
     renderAddresses($conn);
     mysqli_close($conn);
 ?>

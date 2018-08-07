@@ -35,7 +35,7 @@
                         <a class="link" target="_blank" href="$etherchainURL$address">(etherchain.org)</a>
 HEADER;
             
-                if($record["LastSeen"] != 0) {
+                if($record["LastSeen"] > 0) {
                     $unpaidETH = $record["Unpaid"];
                     $unpaidFiat = isset($value) ?
                         number_format(($unpaidETH * $value["CoinValue"]), 2) :

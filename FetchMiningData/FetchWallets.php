@@ -44,7 +44,7 @@
             $hashrateReported = 0;
             $hashrateAverage = 0;
             $valid = 0;
-            $perMinute = 0;
+            $coinsPerMinute = 0;
             $lastSeen = 0;
             $lastRefresh = 0;
 
