@@ -1,6 +1,5 @@
 <?php
     require_once "config.php";
-    require_once "loadData.php";
     require_once "renderCharts.php";
 
     function renderCryptocurrencies(&$conn) {
@@ -37,7 +36,7 @@
                         <div class="valueChart" id="$coinName"></div>
                     </div>
 VALUES;
-                    //renderCryptoChart($coinValue);
+                    renderCryptoChart($conn, $coin);
 
                 }
             }

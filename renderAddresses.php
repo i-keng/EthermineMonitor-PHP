@@ -81,7 +81,7 @@ HEADER;
                     </div>
                 
 DATA;
-                    //renderAddressChart($wallet);
+                    renderAddressChart($conn, $record);
                 }
                 else {
                     print <<< NODATA
