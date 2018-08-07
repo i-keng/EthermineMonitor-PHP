@@ -46,10 +46,18 @@
         }
     }
 
-    $data = new Data;
-    $data->loadData();
-    $wallets = $data->getWallets();
-    $values = $data->getValues();
-    renderCryptocurrencies($values);
-    renderAddresses($wallets, $values);
+    // Create connection
+    $conn = mysqli_connect(DBServer, DBUser, DBPass, DBName);
+    // Check connection
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    //$data = new Data;
+    //$data->loadData();
+    //$wallets = $data->getWallets();
+    //$values = $data->getValues();
+    //renderCryptocurrencies($values);
+    renderAddresses($conn);
+    mysqli_close($conn);
 ?>
