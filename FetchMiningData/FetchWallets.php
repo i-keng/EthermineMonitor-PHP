@@ -125,7 +125,6 @@
 
             $Wallet_id = "SELECT Wallet_id FROM Wallets WHERE Address = '$address' LIMIT 1";
             $history = json_decode(file_get_contents(ethermineAPI . $address . "/history"), true);
-            //var_dump($history);
 
             if(is_array($history)) {
                 $records = mysqli_query($conn,
@@ -137,15 +136,20 @@
 
                 for($i = 0; $i < count($history["data"]); $i++) {
                     $time = $history['data'][$i]['time'];
-                    $active = $history['data'][$i]['activeWorkers'];
-                    $current = number_format(($history['data'][$i]['currentHashrate'] / mHashOffset), 2);
-                    $reported = number_format(($history['data'][$i]['reportedHashrate'] / mHashOffset), 2);
-                    $average = number_format(($history['data'][$i]['averageHashrate'] / mHashOffset), 2);
-                    $stale = $history['data'][$i]['staleShares'];
+                    $active = isset($history['data'][$i]['activeWorkers']) ? 
+                        $history['data'][$i]['activeWorkers'] : 0;
+                    $current = isset($history['data'][$i]['currentHashrate']) ?
+                        number_format(($history['data'][$i]['currentHashrate'] / mHashOffset), 2) : 0;
+                    $reported = isset($history['data'][$i]['reportedHashrate']) ?
+                        number_format(($history['data'][$i]['reportedHashrate'] / mHashOffset), 2) : 0;
+                    $average = isset($history['data'][$i]['averageHashrate']) ?
+                        number_format(($history['data'][$i]['averageHashrate'] / mHashOffset), 2) : 0;
+                    $stale = isset($history['data'][$i]['staleShares']) ?
+                        $history['data'][$i]['staleShares'] : 0;
 
                     if($i < $recordCount) {
                         mysqli_data_seek($records, $i);
-                        $History_id = mysqli_fetch_row($records)[0];
+                        $History_id = mysqli_fetch_assoc($records)["History_id"];
                         $sql = 
                         "UPDATE WalletHistory
                         SET
