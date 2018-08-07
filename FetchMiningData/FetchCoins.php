@@ -25,7 +25,7 @@
             "CREATE TABLE IF NOT EXISTS CoinHistory(
                 History_id int not null auto_increment primary key,
                 CoinValue decimal(8,2),
-                HistoryTime datetime,
+                HistoryTime int,
                 Coin_id int not null,
                 FOREIGN KEY fk_coin(Coin_id)
                 REFERENCES Coins(Coin_id)
@@ -111,13 +111,13 @@
                     "UPDATE CoinHistory
                     SET
                         CoinValue = '$value',
-                        HistoryTime = FROM_UNIXTIME($time)
+                        HistoryTime = '$time'
                     WHERE History_id = '$History_id'";
                 }
                 else {
                     $sql =
                     "INSERT INTO CoinHistory (CoinValue, HistoryTime, Coin_id)
-                    VALUES ('$value', FROM_UNIXTIME($time), ($Coin_id))";
+                    VALUES ('$value', '$time', ($Coin_id))";
                 }
 
                 mysqli_query($conn, $sql);
