@@ -13,15 +13,16 @@
                 Current decimal(10,2),
                 Reported decimal(10,2),
                 Average decimal(10,2),
+                Valid int,
                 PerMinute decimal(25,20),
-                LastSeen datetime,
-                LastRefresh datetime
+                LastSeen int,
+                LastRefresh int
             );"
         );
         mysqli_query($conn, 
             "CREATE TABLE IF NOT EXISTS WalletHistory(
                 History_id int not null auto_increment primary key,
-                HistoryTime datetime,
+                HistoryTime int,
                 ActiveWorkers int,
                 Current decimal(10,2),
                 Reported decimal(10,2),
@@ -42,6 +43,7 @@
             $hashrateCurrent = 0;
             $hashrateReported = 0;
             $hashrateAverage = 0;
+            $valid = 0;
             $perMinute = 0;
             $lastSeen = 0;
             $lastRefresh = 0;
@@ -56,7 +58,8 @@
                 $hashrateReported = number_format(($stats["reportedHashrate"] / mHashOffset), 2);
                 $hashrateAverage = number_format(($stats["averageHashrate"] / mHashOffset), 2);
 
-                $perMinute = $stats["coinsPerMin"];
+                $valid = $stats["validShares"];
+                $coinsPerMinute = $stats["coinsPerMin"];
 
                 $lastSeen = $stats["lastSeen"];
                 $lastRefresh = $stats["time"];
@@ -79,9 +82,10 @@
                     Current = '$hashrateCurrent',
                     Reported = '$hashrateReported',
                     Average = '$hashrateAverage',
-                    PerMinute = '$perMinute',
-                    LastSeen = FROM_UNIXTIME($lastSeen),
-                    LastRefresh = FROM_UNIXTIME($lastRefresh)
+                    Valid = '$valid',
+                    PerMinute = '$coinsPerMinute',
+                    LastSeen = '$lastSeen',
+                    LastRefresh = '$lastRefresh'
                 WHERE Address = '$address'";
             }
             else { // Create a new record if it doesn't exist
@@ -94,6 +98,7 @@
                     Current,
                     Reported,
                     Average,
+                    Valid,
                     PerMinute,
                     LastSeen,
                     LastRefresh
@@ -106,9 +111,10 @@
                     '$hashrateCurrent',
                     '$hashrateReported',
                     '$hashrateAverage',
-                    '$perMinute',
-                    FROM_UNIXTIME($lastSeen),
-                    FROM_UNIXTIME($lastRefresh)
+                    '$valid',
+                    '$coinsPerMinute',
+                    '$lastSeen',
+                    '$lastRefresh'
                 )";
             }
             mysqli_free_result($count);
@@ -143,7 +149,7 @@
                         $sql = 
                         "UPDATE WalletHistory
                         SET
-                            HistoryTime = FROM_UNIXTIME($time),
+                            HistoryTime = '$time',
                             ActiveWorkers = '$active',
                             Current = '$current',
                             Reported = '$reported',
@@ -163,7 +169,7 @@
                             Wallet_id
                         )
                         VALUES (
-                            FROM_UNIXTIME($time),
+                            '$time',
                             '$active',
                             '$current',
                             '$reported',
