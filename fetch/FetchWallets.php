@@ -1,6 +1,4 @@
 <?php
-    require_once "../config.php";
-
     function FetchWallets(&$conn) {
         // Ensure tables exist
         mysqli_query($conn, 
