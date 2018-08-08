@@ -63,7 +63,7 @@ HEADER;
                     <li>Unpaid ETH: $unpaidETH (\${$unpaidFiat} $primaryCurrency)</li>
                     <li><ul>Hashrate:
                         <li>Current: $hashrateCurrent Mh/s ($valid shares)</li>
-                        <li>Repoted: $hashrateReported Mh/s</li>
+                        <li>Reported: $hashrateReported Mh/s</li>
                         <li>Average: $hashrateAverage Mh/s</li>
                     </ul></li>
                 
