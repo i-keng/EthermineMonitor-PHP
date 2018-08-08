@@ -1,9 +1,7 @@
 <?php
-    //require_once "../config.php";
     require_once "renderCharts.php";
 
     function renderCryptocurrencies(&$conn) {
-        //$draw = "drawChart";
         $convert = "conversionRates";
         $lastUpdate = date(timeFormat, time());
         
@@ -15,7 +13,9 @@
             return $returnString;
         }
 
-        print("<div id=\"values\">\n");
+        print <<< TopDiv
+    <div id="values">
+TopDiv;
 
         if($coinResult = mysqli_query($conn, "SELECT * FROM Coins")) {
             while($coin = mysqli_fetch_assoc($coinResult)) {
@@ -28,13 +28,15 @@
                     
                     print <<< VALUES
 
-                    <div class="valueSection" id="{$coinName}Section">
-                        <ul class="valueData">
-                            <h3 class="valueHeader">1 $coinName = </h3>
-                            {$convert($valueResults)}
-                        </ul>
-                        <div class="valueChart" id="$coinName"></div>
-                    </div>
+        <div class="valueSection" id="{$coinName}Section">
+            <div class="valueData">
+                <h3 class="valueHeader">1 $coinName = </h3>
+                <ul>
+                    {$convert($valueResults)}
+                </ul>
+            </div>
+            <div class="valueChart" id="$coinName"></div>
+        </div>
 VALUES;
                     renderCryptoChart($conn, $coin);
 
@@ -44,11 +46,15 @@ VALUES;
 
         print <<< TIME
         
-            <div id="updateTime">
-                <h4>Page Last Updated: $lastUpdate</h4>
-            </div>
+        <div id="updateTime">
+            <h4>Page Last Updated: $lastUpdate</h4>
+        </div>
+
 TIME;
 
-        print("</div>\n");
+        print <<< BottomDiv
+    </div>
+
+BottomDiv;
     }
 ?>

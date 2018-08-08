@@ -73,11 +73,11 @@ ul {
 .valueData {
     float: left;
     min-width: 6.5em;
-    padding-left: 30px;
 }
 .valueHeader {
     margin-bottom: 0.5em;
     display: block;
+    text-align: center;
 }
 .valueChart {
     height: 10em;

@@ -1,9 +1,10 @@
 <?php
-    //require_once "../config.php";
     require_once "renderCharts.php";
 
     function renderAddresses(&$conn) {
-        print("<div id=\"current\">\n");
+        print <<< TopDiv
+    <div id="current">
+TopDiv;
 
         if($result = mysqli_query($conn, "SELECT * FROM Wallets")) {
             $value = mysqli_fetch_assoc(mysqli_query($conn,
@@ -25,14 +26,15 @@
                 $activeWorkers = $record["ActiveWorkers"];
             
                 print <<< HEADER
-                <div id="{$name}Section" class="Section" style="$style">
-                    <ul class="current $name">
-            
-                        <h3 class="$name">$name's Miner</h3>
-                        <span class="subHeaders">Active Workers: $activeWorkers</span>
-                        <span class="subHeaders">Wallet:</span>
-                        <a class="link" target="_blank" href="$ethermineURL$address">$address</a>
-                        <a class="link" target="_blank" href="$etherchainURL$address">(etherchain.org)</a>
+
+        <div id="{$name}Section" class="Section" style="$style">
+            <div class="current $name">
+                <h3 class="$name">$name's Miner</h3>
+                <span class="subHeaders">Active Workers: $activeWorkers</span>
+                <span class="subHeaders">Wallet:</span>
+                <a class="link" target="_blank" href="$ethermineURL$address">$address</a>
+                <a class="link" target="_blank" href="$etherchainURL$address">(etherchain.org)</a>
+                <ul>
 HEADER;
             
                 if($record["LastSeen"] > 0) {
@@ -59,42 +61,47 @@ HEADER;
                     $lastRefresh = date(timeFormat, $record["LastRefresh"]);
                 
                     print <<< DATA
-                
+
                     <li>Unpaid ETH: $unpaidETH (\${$unpaidFiat} $primaryCurrency)</li>
-                    <li><ul>Hashrate:
-                        <li>Current: $hashrateCurrent Mh/s ($valid shares)</li>
-                        <li>Reported: $hashrateReported Mh/s</li>
-                        <li>Average: $hashrateAverage Mh/s</li>
-                    </ul></li>
-                
-                    <li><ul>ETH ($primaryCurrency) per
-                        <li>Week: $payrateETHWeek (\${$payrateUSDWeek})</li>
-                        <li>Month: $payrateETHMonth (\${$payrateUSDMonth})</li>
-                        <li>Year: $payrateETHYear (\${$payrateUSDYear})</li>
-                    </ul></li>
-                
+                    <li>Hashrate:
+                        <ul>
+                            <li>Current: $hashrateCurrent Mh/s ($valid shares)</li>
+                            <li>Reported: $hashrateReported Mh/s</li>
+                            <li>Average: $hashrateAverage Mh/s</li>
+                        </ul>
+                    </li>
+                    <li>ETH ($primaryCurrency) per
+                        <ul>
+                            <li>Week: $payrateETHWeek (\${$payrateUSDWeek})</li>
+                            <li>Month: $payrateETHMonth (\${$payrateUSDMonth})</li>
+                            <li>Year: $payrateETHYear (\${$payrateUSDYear})</li>
+                        </ul>
+                    </li>
                     <li>Miner last seen: $lastSeen</li>
                     <li>Last pool refresh: $lastRefresh</li>
-                    </ul>
-                
-                    <div class="chart" id="$name"></div>
-                    </div>
-                
+                </ul>
+            </div>
+            <div class="chart" id="$name"></div>
+        </div>      
 DATA;
                     renderAddressChart($conn, $record);
                 }
                 else {
                     print <<< NODATA
-                
+
                     <li class="nodata">No Data</li>
-                    </ul>
-                    </div>
-                
+                </ul>
+            </div>
+        </div>
+
 NODATA;
                 }
             }
         }
 
-        print("</div>\n");
+        print <<< BottomDiv
+    </div>
+
+BottomDiv;
     }
 ?>

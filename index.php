@@ -11,8 +11,8 @@
     <script type="text/javascript" src="fusioncharts/fusioncharts-dist/fusioncharts.js"></script>
 </head>
 <body>
-    <?php
-        require_once "render/renderAll.php";
-    ?>
+<?php
+    require_once "render/renderAll.php";
+?>
 </body>
 </html>
