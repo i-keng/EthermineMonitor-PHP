@@ -50,12 +50,12 @@ a {
 }
 .valueData {
     float: left;
-    min-width: 6.5em;
+    width: 9em;
     font-size: 120%;
 }
-.valueDataList {
-    margin: 0;
-}
+/* .valueDataList {
+    
+} */
 .valueChart {
     height: 10em;
     float: left;

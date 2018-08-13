@@ -8,7 +8,7 @@
         function conversionRates($values) {
             $returnString = "";
             while($value = mysqli_fetch_assoc($values)) {
-                $returnString .= "<li>" . $value["ValueSymbol"] . ": " . rtrim($value["CoinValue"], "0") . "</li>";
+                $returnString .= "<li>" . $value["ValueSymbol"] . ": " . rtrim(rtrim($value["CoinValue"], "0"), ".") . "</li>";
             }
             return $returnString;
         }
