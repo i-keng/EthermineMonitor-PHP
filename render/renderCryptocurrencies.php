@@ -30,12 +30,12 @@ TopDiv;
 
         <div class="valueSection" id="{$coinName}Section">
             <div class="valueData">
-                <h3 class="valueHeader">1 $coinName = </h3>
-                <ul>
+                <span class="header">1 $coinName = </span>
+                <ul class="valueDataList">
                     {$convert($valueResults)}
                 </ul>
             </div>
-            <div class="valueChart" id="$coinName"></div>
+            <div class="valueChart" id="{$coinName}ChartContainer"></div>
         </div>
 VALUES;
                     renderCryptoChart($conn, $coin);

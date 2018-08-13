@@ -3,7 +3,7 @@
 
     function renderAddresses(&$conn) {
         print <<< TopDiv
-    <div id="current">
+    <div id="addresses">
 TopDiv;
 
         if($result = mysqli_query($conn, "SELECT * FROM Wallets")) {
@@ -27,14 +27,14 @@ TopDiv;
             
                 print <<< HEADER
 
-        <div id="{$name}Section" class="Section" style="$style">
-            <div class="current $name">
-                <h3 class="$name">$name's Miner</h3>
-                <span class="subHeaders">Active Workers: $activeWorkers</span>
-                <span class="subHeaders">Wallet:</span>
-                <a class="link" target="_blank" href="$ethermineURL$address">$address</a>
-                <a class="link" target="_blank" href="$etherchainURL$address">(etherchain.org)</a>
-                <ul>
+        <div id="{$name}Section" class="addressSection" style="$style">
+            <div class="addressData $name">
+                <span class="header">$name's Miner</span>
+                <span class="subHeader">Active Workers: $activeWorkers</span>
+                <span class="subHeader">Wallet:</span>
+                <a target="_blank" href="$ethermineURL$address">$address</a>
+                <a target="_blank" href="$etherchainURL$address">(etherchain.org)</a>
+                <ul class="addressDataList">
 HEADER;
             
                 if($record["LastSeen"] > 0) {
@@ -81,7 +81,7 @@ HEADER;
                     <li>Last pool refresh: $lastRefresh</li>
                 </ul>
             </div>
-            <div class="chart" id="$name"></div>
+            <div class="addressChart" id="{$name}ChartContainer"></div>
         </div>      
 DATA;
                     renderAddressChart($conn, $record);
@@ -89,7 +89,7 @@ DATA;
                 else {
                     print <<< NODATA
 
-                    <li class="nodata">No Data</li>
+                    <li id="nodata">No Data</li>
                 </ul>
             </div>
         </div>

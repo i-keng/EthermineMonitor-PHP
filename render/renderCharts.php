@@ -81,7 +81,7 @@
             ));
 
             $jsonData = json_encode($data);
-            $chart = new FusionCharts("MultiAxisLine", "{$name}Chart", "100%", "280", "$name", "json", $jsonData);
+            $chart = new FusionCharts("MultiAxisLine", "{$name}Chart", "100%", "280", "{$name}ChartContainer", "json", $jsonData);
             $chart->render();
         }
     }
@@ -118,7 +118,7 @@
             }
 
             $jsonData = json_encode($data);
-            $chart = new FusionCharts("line", "{$coin}Chart", "100%", "100%", "$coin", "json", $jsonData);
+            $chart = new FusionCharts("line", "{$coin}Chart", "100%", "100%", "{$coin}ChartContainer", "json", $jsonData);
             $chart->render();
         }
     }
