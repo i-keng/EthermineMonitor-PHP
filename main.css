@@ -20,7 +20,7 @@ a {
     width: 100%;
     min-width: 55em;
     background-color: lightgrey;
-    box-shadow: .5em .5em #000000;
+    box-shadow: .5em .5em 1em #000000;
 }
 #updateTime {
     float: right;
@@ -74,7 +74,7 @@ a {
 .addressData {
     margin-bottom: .5em;
     padding: 1.2em;
-    box-shadow: .5em .5em #000000;
+    box-shadow: inset 0 0 10em darkslategray, .5em .5em 1em #000000;
 }
 .addressDataList {
     display: block;
@@ -87,7 +87,7 @@ a {
 .addressChart {
     width: 100%;
     min-height: 13em;
-    box-shadow: .5em .5em #000000;
+    box-shadow: .5em .5em 1em #000000;
 }
 
 
