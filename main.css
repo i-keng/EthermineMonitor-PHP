@@ -20,11 +20,12 @@ a {
     width: 100%;
     min-width: 55em;
     background-color: lightgrey;
-    box-shadow: .5em .5em 1em #000000;
+    box-shadow: inset 0 0 2em black, .5em .5em 1em #000000;
 }
 #updateTime {
     float: right;
     padding-right: 2em;
+    /* display: none; */
 }
 #nodata {
     text-align: center;
@@ -46,12 +47,13 @@ a {
 
 .valueSection {
     float: left;
-    margin: 0.2em;
+    margin: 1em 0.2em;
 }
 .valueData {
     float: left;
     width: 9em;
     font-size: 120%;
+    margin-top: 1em;
 }
 /* .valueDataList {
     
