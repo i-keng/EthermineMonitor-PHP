@@ -1,5 +1,5 @@
 <?php
-    require_once getcwd() . "/../config.php";
+    require_once dirname(__FILE__) . "/../config.php";
     require_once "FetchCoins.php";
     require_once "FetchWallets.php";
     require_once "FetchFooter.php";
