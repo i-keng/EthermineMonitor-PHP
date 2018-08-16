@@ -19,7 +19,7 @@ TopDiv;
                 $address = $record["Address"];
                 $ethermineURL = ethermineURL;
                 $etherchainURL = etherchainURL;
-                $style = "width: " . ((99 / count(ADDRESSES)) - 0.5) . "%;";
+                $style = "width: " . ((100 / count(ADDRESSES)) - 1) . "%;";
             
                 $primaryCurrency = $value["ValueSymbol"];
             
