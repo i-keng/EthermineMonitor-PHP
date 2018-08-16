@@ -6,30 +6,33 @@ a {
     display: block;
     font-size: 75%;
     color: black;
-    text-align: center;
 }
 
 /* ids */
+#header, #footer {
+    width: 100%;
+    min-width: 54em;
+    display: inline-block;
+    background-color: darkgray;
+    box-shadow: inset 0 0 1em black, .5em .5em 1em black;
+    margin: .5em 0;
+}
 #addresses {
     width: 100%;
-    min-width: 55em;
+    min-width: 54em;
     display: inline-block;
+    text-align: center;
+    margin: .3em 0;
 }
 #values {
-    margin-bottom: 0.5em;
-    width: 100%;
-    min-width: 55em;
+    margin: 1em;
     text-align: center;
-    background-color: darkgray;
-    box-shadow: inset 0 0 1em black, .5em .5em 1em #000000;
 }
-#updateTime {
+#updatedPage {
     float: right;
     padding-right: 2em;
-    display: none;
 }
 #nodata {
-    text-align: center;
     list-style: none;
 }
 
@@ -37,19 +40,17 @@ a {
 .header {
     margin-bottom: .5em;
     display: block;
-    text-align: center;
     font-size: 120%;
     font-weight: 700;
+    text-align: center;
 }
 .subHeader {
     display: block;
-    text-align: center;
 }
 
 .valueSection {
     display: inline-block;
-    margin: 1em;
-    text-align: left;
+    margin: 0 1em;
 }
 .valueData {
     float: left;
@@ -57,9 +58,9 @@ a {
     font-size: 120%;
     margin-top: 1em;
 }
-/* .valueDataList {
-    padding-left: 0; 
-} */
+.valueDataList {
+    text-align: left;
+}
 .valueChart {
     height: 10em;
     float: left;
@@ -71,9 +72,9 @@ a {
     color: rgb(201, 201, 201);
     float: left; 
     min-width: 20em;
-    min-height: 38em;
+    /* min-height: 38em; */
     font-size: 130%;
-    margin: 0.2em;
+    margin: 0.3em;
 }
 .addressData {
     margin-bottom: .5em;
@@ -81,10 +82,8 @@ a {
     box-shadow: inset 0 0 15em darkslategray, .5em .5em 1em #000000;
 }
 .addressDataList {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 15em;
+    display: inline-block;
+    text-align: left;
     padding-left: 0;
     margin-bottom: 0;
 }

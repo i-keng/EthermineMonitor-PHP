@@ -3,7 +3,6 @@
 
     function renderCryptocurrencies(&$conn) {
         $convert = "conversionRates";
-        $lastUpdate = date(timeFormat, time());
         
         function conversionRates($values) {
             $returnString = "";
@@ -14,7 +13,8 @@
         }
 
         print <<< TopDiv
-    <div id="values">
+    <div id="header">
+        <div id="values">
 TopDiv;
 
         if($coinResult = mysqli_query($conn, "SELECT * FROM Coins")) {
@@ -28,15 +28,15 @@ TopDiv;
                     
                     print <<< VALUES
 
-        <div class="valueSection" id="{$coinName}Section">
-            <div class="valueData">
-                <span class="header">1 $coinName = </span>
-                <ul class="valueDataList">
-                    {$convert($valueResults)}
-                </ul>
+            <div class="valueSection" id="{$coinName}Section">
+                <div class="valueData">
+                    <span class="header">1 $coinName = </span>
+                    <ul class="valueDataList">
+                        {$convert($valueResults)}
+                    </ul>
+                </div>
+                <div class="valueChart" id="{$coinName}ChartContainer"></div>
             </div>
-            <div class="valueChart" id="{$coinName}ChartContainer"></div>
-        </div>
 VALUES;
                     renderCryptoChart($conn, $coin);
 
@@ -44,15 +44,8 @@ VALUES;
             }
         }
 
-        print <<< TIME
-        
-        <div id="updateTime">
-            <h4>Page Last Updated: $lastUpdate</h4>
-        </div>
-
-TIME;
-
         print <<< BottomDiv
+        </div>
     </div>
 
 BottomDiv;

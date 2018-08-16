@@ -46,7 +46,7 @@
             $lastSeen = 0;
             $lastRefresh = 0;
 
-            $stats = json_decode(file_get_contents(ethermineAPI . $address . "/currentStats"), true)["data"];
+            $stats = json_decode(file_get_contents(minerURL . $address . "/currentStats"), true)["data"];
 
             if(is_array($stats) && isset($stats['activeWorkers'])) {
                 $active = $stats['activeWorkers'];
@@ -122,7 +122,7 @@
 
 
             $Wallet_id = "SELECT Wallet_id FROM Wallets WHERE Address = '$address' LIMIT 1";
-            $history = json_decode(file_get_contents(ethermineAPI . $address . "/history"), true);
+            $history = json_decode(file_get_contents(minerURL . $address . "/history"), true);
 
             if(is_array($history)) {
                 $records = mysqli_query($conn,
