@@ -19,7 +19,7 @@ TopDiv;
                 $address = $record["Address"];
                 $ethermineURL = ethermineURL;
                 $etherchainURL = etherchainURL;
-                $style = "width: " . ((100 / count(ADDRESSES)) - 1) . "%;";
+                $style = "width: " . ((99 / count(ADDRESSES)) - 1) . "%;";
             
                 $primaryCurrency = $value["ValueSymbol"];
             
@@ -27,8 +27,8 @@ TopDiv;
             
                 print <<< HEADER
 
-        <div id="{$name}Section" class="addressSection" style="$style">
-            <div class="addressData $name">
+        <div id="{$name}Section" class="addressSection  $name" style="$style">
+            <div class="addressData">
                 <span class="header">$name's Miner</span>
                 <span class="subHeader">Active Workers: $activeWorkers</span>
                 <span class="subHeader">Wallet:</span>
