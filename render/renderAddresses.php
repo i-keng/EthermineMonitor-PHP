@@ -6,7 +6,7 @@
     <div id="addresses">
 TopDiv;
 
-        if($result = mysqli_query($conn, "SELECT * FROM Wallets")) {
+        if($result = mysqli_query($conn, "SELECT * FROM Wallets ORDER BY ActiveWorkers DESC")) {
             $value = mysqli_fetch_assoc(mysqli_query($conn,
                 "SELECT Coins.Coin, CoinValues.ValueSymbol, CoinValues.CoinValue
                 FROM Coins, CoinValues
@@ -19,7 +19,7 @@ TopDiv;
                 $address = $record["Address"];
                 $ethermineURL = ethermineURL;
                 $etherchainURL = etherchainURL;
-                $style = "width: " . ((99 / count(ADDRESSES)) - 1) . "%;";
+                $style = "width: " . ((99 / count(ADDRESSES)) - 1.4) . "%;";
             
                 $primaryCurrency = $value["ValueSymbol"];
             
