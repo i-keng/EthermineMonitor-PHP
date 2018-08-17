@@ -16,7 +16,7 @@
         )) {
             $data = array(
                 "chart" => array(
-                    "caption" => "$name",
+                    // "caption" => "$name",
                     "showLegend" => "1",
                     "showvalues" => "0",
                     "drawAnchors" => "0",
@@ -30,6 +30,7 @@
                 "axis" => array(
                     array(
                         "title" => "Hashrate (Mh/s)",
+                        "color" => "000000",
                         "dataset" => array()
                     ),
                     array(
@@ -39,6 +40,7 @@
                         "maxValue" => "20",
                         "numDivLines" => "20",
                         "yAxisValueDecimals" => "0",
+                        "color" => "006400",
                         "dataset" => array()
                     )
                 )
