@@ -42,14 +42,15 @@
     const timeFormat = "h:ia T";
 
     const valueHistoryLimit = 30;
-    const mHashOffset = 1000000;
-    const ethOffset = 1000000000000000000;
+    const mHashOffset = 10 ** 6;
+    const ethOffset = 10 ** 18;
     const timeOffset = 1000;
     const perHourOffset = 60;
     const perDayOffset = perHourOffset * 24;
     const perWeekOffset = perDayOffset * 7;
     const perYearOffset = perWeekOffset * 52;
     const perMonthOffset = perYearOffset / 12;
+    const tHashOffset = 10 ** 12;
 
     /* 
         ********** API and hyperlink URLs **********
