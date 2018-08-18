@@ -83,7 +83,7 @@
             ));
 
             $jsonData = json_encode($data);
-            $chart = new FusionCharts("MultiAxisLine", "{$name}Chart", "100%", "280", "{$name}ChartContainer", "json", $jsonData);
+            $chart = new FusionCharts("MultiAxisLine", "{$name}Chart", "100%", "100%", "{$name}ChartContainer", "json", $jsonData);
             $chart->render();
         }
     }
