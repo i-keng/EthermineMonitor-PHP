@@ -1,15 +1,5 @@
 <?php
     function FetchFooter(&$conn) {
-        $lastUpdate = time();
-        $difficulty = json_decode(file_get_contents(difficultyURL), true)[0]["difficulty"];
-        $poolhashrate = json_decode(file_get_contents(poolstatsURL), true)["data"]["poolStats"]["hashRate"];
-        
-        $difficulty /= tHashOffset;
-        $difficulty = number_format($difficulty, 2, '.', '');
-        
-        $poolhashrate /= tHashOffset;
-        $poolhashrate = number_format($poolhashrate, 2, '.', '');
-
         // Ensure tables exist
         mysqli_query($conn, 
             "CREATE TABLE IF NOT EXISTS Footer(
@@ -18,9 +8,29 @@
                 PoolHashrate decimal(10,2)
             );"
         );
+        
+        // Attempt to GET, decode, and format footer data
+        $difficulty = json_decode(file_get_contents(difficultyURL), true);
+        if($difficulty) {
+            $difficulty = number_format(
+                ($difficulty[0]["difficulty"] / tHashOffset), 2, '.', ''
+            );
+        }
 
+        $poolhashrate = json_decode(file_get_contents(poolstatsURL), true);
+        if($poolhashrate) {
+            $poolhashrate = number_format(
+                ($poolhashrate["data"]["poolStats"]["hashRate"] / tHashOffset), 2, '.', ''
+            );
+        }
+
+        // Grab the current time for DB updated time
+        $lastUpdate = time();
+
+        // Ensure the footer data exists in the DB
         $result = mysqli_query($conn, "SELECT * FROM Footer");
         
+        // Update the records if they exist
         if(mysqli_num_rows($result) > 0) {
             $sql = 
             "UPDATE Footer
@@ -30,7 +40,7 @@
                 PoolHashrate = '$poolhashrate'
             ";
         }
-        else {
+        else { // Create new records if they don't exist
             $sql = 
             "INSERT INTO Footer (
                 LastUpdate,
@@ -44,9 +54,6 @@
             )";
         }
         mysqli_free_result($result);
-        
-        if(!mysqli_query($conn, $sql)) {
-            echo "<p>" . mysqli_error($conn) . "</p>";
-        }
+        mysqli_query($conn, $sql);
     }
 ?>

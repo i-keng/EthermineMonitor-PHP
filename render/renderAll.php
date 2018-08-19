@@ -10,9 +10,12 @@
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
+
+    // Use DB connection to retrieve content
     renderCryptocurrencies($conn);
     renderAddresses($conn);
     renderFooter($conn);
     
+    // Close connection
     mysqli_close($conn);
 ?>

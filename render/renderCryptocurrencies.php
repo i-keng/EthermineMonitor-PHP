@@ -2,8 +2,10 @@
     require_once "renderCharts.php";
 
     function renderCryptocurrencies(&$conn) {
+        // Prepare conversionRates function for inclusion in VALUES heredoc
         $convert = "conversionRates";
         
+        // Retrieve each stored value
         function conversionRates($values) {
             $returnString = "";
             while($value = mysqli_fetch_assoc($values)) {
@@ -12,11 +14,13 @@
             return $returnString;
         }
 
+        // Render container divs
         print <<< TopDiv
     <div id="header">
         <div id="values">
 TopDiv;
 
+        // Attempt to retrieve and render each coin and values from the DB
         if($coinResult = mysqli_query($conn, "SELECT * FROM Coins")) {
             while($coin = mysqli_fetch_assoc($coinResult)) {
                 if($valueResults = mysqli_query($conn,
@@ -44,6 +48,7 @@ VALUES;
             }
         }
 
+        // Close container divs
         print <<< BottomDiv
         </div>
     </div>

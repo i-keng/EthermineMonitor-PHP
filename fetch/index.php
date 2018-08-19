@@ -1,3 +1,6 @@
+<!--
+    This page can be used to manually refresh the data in the database
+-->
 <html>
     <head>
         <?php

@@ -1,4 +1,5 @@
 <?php
+    // Depends on FusionCharts fusioncharts-dist and php-wrapper, included in .gitmodules
     require_once "fusioncharts/php-wrapper/fusioncharts-wrapper/fusioncharts.php";
 
     function renderAddressChart(&$conn, &$wallet) {
@@ -8,15 +9,16 @@
         $average = array();
         $stale = array();
 
+        // Attempt to retrieve WalletHistory from DB
         if($result = mysqli_query($conn,
             "SELECT *
             FROM WalletHistory
             WHERE Wallet_id = ($wallet[Wallet_id])
             ORDER BY HistoryTime"
         )) {
+            // Prepare the data array with required chart settings
             $data = array(
                 "chart" => array(
-                    // "caption" => "$name",
                     "showLegend" => "1",
                     "showvalues" => "0",
                     "drawAnchors" => "0",
@@ -46,6 +48,7 @@
                 )
             );
 
+            // Prepare history to be added to the chart
             while($record = mysqli_fetch_assoc($result)) {
                 $label = date("h:i", $record['HistoryTime']);
                 array_push($data['categories'][0]['category'], array(
@@ -57,6 +60,7 @@
                 array_push($stale, array("value" => $record['Stale']));
             }
 
+            // Add the prepared history to the data array
             array_push($data['axis'][0]['dataset'], array(
                 "seriesname" => "Current",
                 "color" => "3366CC",
@@ -82,6 +86,7 @@
                 "data" => $stale
             ));
 
+            // Encode the data array, add it to the chart, and render the chart
             $jsonData = json_encode($data);
             $chart = new FusionCharts("MultiAxisLine", "{$name}Chart", "100%", "100%", "{$name}ChartContainer", "json", $jsonData);
             $chart->render();
@@ -92,12 +97,14 @@
         $coin = $value["Coin"];
         $values = array();
 
+        // Attempt to retrieve CoinHistory from DB
         if($result = mysqli_query($conn,
             "SELECT *
             FROM CoinHistory
             WHERE Coin_id = ($value[Coin_id])
             ORDER BY HistoryTime"
         )) {
+            // Prepare the data array with required chart settings
             $data = array(
                 "chart" => array(
                     "paletteColors" => "3366CC",
@@ -111,6 +118,7 @@
                 "data" => array()
             );
 
+            // Prepare history to be added to the chart and add it to the data array
             while($record = mysqli_fetch_assoc($result)) {
                 $label = date("m/d", $record['HistoryTime']);
                 array_push($data['data'], array(
@@ -119,6 +127,7 @@
                 ));
             }
 
+            // Encode the data array, add it to the chart, and render the chart
             $jsonData = json_encode($data);
             $chart = new FusionCharts("line", "{$coin}Chart", "100%", "100%", "{$coin}ChartContainer", "json", $jsonData);
             $chart->render();

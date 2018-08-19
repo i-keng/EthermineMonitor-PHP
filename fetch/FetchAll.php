@@ -11,9 +11,11 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
+    // Use DB connection to store fetched content
     FetchCoins($conn);
     FetchWallets($conn);
     FetchFooter($conn);
 
+    // Close connection
     mysqli_close($conn);
 ?>

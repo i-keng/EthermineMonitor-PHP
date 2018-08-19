@@ -1,3 +1,9 @@
+<!--
+    Load and render ethereum mining data from ethermine.org as well as current values of 
+    cryptocurrencies (e.g. ETH, BTC, etc.) provided in the config.php file.
+
+    See the README for more information: https://github.com/xcalibur839/EthermineMonitor-PHP
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +18,7 @@
 </head>
 <body>
 <?php
+    // Render process begins automatically by including/requiring render/renderAll.php
     require_once "render/renderAll.php";
 ?>
 </body>

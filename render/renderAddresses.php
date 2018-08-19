@@ -2,11 +2,14 @@
     require_once "renderCharts.php";
 
     function renderAddresses(&$conn) {
+        // Render container div
         print <<< TopDiv
     <div id="addresses">
 TopDiv;
 
+        // Attempt to retrieve Wallet data from DB from most to least active workers
         if($result = mysqli_query($conn, "SELECT * FROM Wallets ORDER BY ActiveWorkers DESC")) {
+            // Retrieve the current value of ETH for value calculations
             $value = mysqli_fetch_assoc(mysqli_query($conn,
                 "SELECT Coins.Coin, CoinValues.ValueSymbol, CoinValues.CoinValue
                 FROM Coins, CoinValues
@@ -14,6 +17,8 @@ TopDiv;
                 AND Coins.Coin_id = CoinValues.Coin_id
                 LIMIT 1"
             ));
+
+            // Prepare and render each address section
             while($record = mysqli_fetch_assoc($result)) {
                 $name = $record["Name"];
                 $address = $record["Address"];
@@ -36,7 +41,8 @@ TopDiv;
                 <a target="_blank" href="$etherchainURL$address">(etherchain.org)</a>
                 <ul class="addressDataList">
 HEADER;
-            
+
+                // Prepare and render the miner data for this address if it was active recently
                 if($record["LastSeen"] > 0) {
                     $unpaidETH = $record["Unpaid"];
                     $unpaidFiat = isset($value) ?
@@ -86,7 +92,7 @@ HEADER;
 DATA;
                     renderAddressChart($conn, $record);
                 }
-                else {
+                else { // Render the nodata item if the miner hasn't been active recently
                     print <<< NODATA
 
                     <li id="nodata">No Data</li>
@@ -99,6 +105,7 @@ NODATA;
             }
         }
 
+        // Close container div
         print <<< BottomDiv
     </div>
 

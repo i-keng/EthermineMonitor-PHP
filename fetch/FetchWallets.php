@@ -46,8 +46,15 @@
             $lastSeen = 0;
             $lastRefresh = 0;
 
-            $stats = json_decode(file_get_contents(minerURL . $address . "/currentStats"), true)["data"];
 
+            // GET and decode miner data
+            $stats = json_decode(file_get_contents(minerURL . $address . "/currentStats"), true);
+            // Attempt to use the data array
+            if($stats) {
+                $stats = $stats["data"];
+            }
+
+            // Ensure the request was successful and returned expected data
             if(is_array($stats) && isset($stats['activeWorkers'])) {
                 $active = $stats['activeWorkers'];
                 $unpaid = number_format(($stats["unpaid"] / ethOffset), 6);
@@ -116,15 +123,20 @@
                 )";
             }
             mysqli_free_result($count);
-
-            // Execute the query
             mysqli_query($conn, $sql);
 
-
+            // Grab the Wallet_id for this address
             $Wallet_id = "SELECT Wallet_id FROM Wallets WHERE Address = '$address' LIMIT 1";
+
+            // GET and decode the history data
             $history = json_decode(file_get_contents(minerURL . $address . "/history"), true);
 
+            // Ensure the request was successful and returned expected data
             if(is_array($history)) {
+                // Work with the actual data array that was downloaded
+                $history = $history["data"];
+
+                // Retrieve and count any existing records for this wallet
                 $records = mysqli_query($conn,
                     "SELECT History_id
                     FROM WalletHistory
@@ -132,19 +144,19 @@
                 );
                 $recordCount = mysqli_num_rows($records);
 
-                for($i = 0; $i < count($history["data"]); $i++) {
-                    $time = $history['data'][$i]['time'];
-                    $active = isset($history['data'][$i]['activeWorkers']) ? 
-                        $history['data'][$i]['activeWorkers'] : 0;
-                    $current = isset($history['data'][$i]['currentHashrate']) ?
-                        number_format(($history['data'][$i]['currentHashrate'] / mHashOffset), 2) : 0;
-                    $reported = isset($history['data'][$i]['reportedHashrate']) ?
-                        number_format(($history['data'][$i]['reportedHashrate'] / mHashOffset), 2) : 0;
-                    $average = isset($history['data'][$i]['averageHashrate']) ?
-                        number_format(($history['data'][$i]['averageHashrate'] / mHashOffset), 2) : 0;
-                    $stale = isset($history['data'][$i]['staleShares']) ?
-                        $history['data'][$i]['staleShares'] : 0;
+                // Add the downloaded history to the DB
+                for($i = 0; $i < count($history); $i++) {
+                    $time = $history[$i]['time'];
+                    $active = isset($history[$i]['activeWorkers']) ? $history[$i]['activeWorkers'] : 0;
+                    $current = isset($history[$i]['currentHashrate']) ?
+                        number_format(($history[$i]['currentHashrate'] / mHashOffset), 2, '.', '') : 0;
+                    $reported = isset($history[$i]['reportedHashrate']) ?
+                        number_format(($history[$i]['reportedHashrate'] / mHashOffset), 2, '.', '') : 0;
+                    $average = isset($history[$i]['averageHashrate']) ?
+                        number_format(($history[$i]['averageHashrate'] / mHashOffset), 2, '.', '') : 0;
+                    $stale = isset($history[$i]['staleShares']) ? $history[$i]['staleShares'] : 0;
 
+                    // Update any existing history indexes
                     if($i < $recordCount) {
                         mysqli_data_seek($records, $i);
                         $History_id = mysqli_fetch_assoc($records)["History_id"];
@@ -159,7 +171,7 @@
                             Stale = '$stale'
                         WHERE History_id = '$History_id'";
                     }
-                    else {
+                    else { // Insert any new history index
                         $sql =
                         "INSERT INTO WalletHistory (
                             HistoryTime,
