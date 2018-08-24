@@ -10,7 +10,13 @@
         );
         
         // Attempt to GET, decode, and format footer data
-        $difficulty = json_decode(file_get_contents(difficultyURL), true);
+        $context = stream_context_create([
+            "http" => [
+                "method" => "GET",
+                "header" => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+            ]
+        ]);
+        $difficulty = json_decode(file_get_contents(difficultyURL, false, $context), true);
         if($difficulty) {
             $difficulty = number_format(
                 ($difficulty[0]["difficulty"] / tHashOffset), 2, '.', ''
