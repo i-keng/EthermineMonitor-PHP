@@ -32,7 +32,7 @@ TopDiv;
             
                 print <<< HEADER
 
-        <div id="{$name}Section" class="addressSection  $name" style="$style">
+        <div id="{$name}Section" class="addressSection $name" style="$style">
             <div class="addressData">
                 <span class="header">$name's Miner</span>
                 <span class="subHeader">Active Workers: $activeWorkers</span>
