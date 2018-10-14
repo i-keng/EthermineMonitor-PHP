@@ -20,12 +20,15 @@ a {
     background-color: darkgray;
     box-shadow: inset 0 0 1em black, .5em .5em 1em black;
 }
-#addresses {
+#body {
+    text-align: center;
     width: 100%;
     min-width: 55.5em;
-    display: inline-block;
-    text-align: center;
     margin: .5em 0;
+}
+#addresses {
+    display: inline-block;
+    width: auto;
 }
 #values {
     margin: 1em;
@@ -113,4 +116,7 @@ a {
 }
 .Josh {
     background-color: green;
+}
+.Gohan, Gloug {
+    background-color: #0000ff;
 }

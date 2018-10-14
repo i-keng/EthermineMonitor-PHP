@@ -4,7 +4,8 @@
     function renderAddresses(&$conn) {
         // Render container div
         print <<< TopDiv
-    <div id="addresses">
+    <div id="body">
+        <div id="addresses">
 TopDiv;
 
         // Attempt to retrieve Wallet data from DB from most to least active workers
@@ -32,14 +33,14 @@ TopDiv;
             
                 print <<< HEADER
 
-        <div id="{$name}Section" class="addressSection $name" style="$style">
-            <div class="addressData">
-                <span class="header">$name's Miner</span>
-                <span class="subHeader">Active Workers: $activeWorkers</span>
-                <span class="subHeader">Wallet:</span>
-                <a target="_blank" href="$ethermineURL$address">$address</a>
-                <a target="_blank" href="$etherchainURL$address">(etherchain.org)</a>
-                <ul class="addressDataList">
+            <div id="{$name}Section" class="addressSection $name" style="$style">
+                <div class="addressData">
+                    <span class="header">$name's Miner</span>
+                    <span class="subHeader">Active Workers: $activeWorkers</span>
+                    <span class="subHeader">Wallet:</span>
+                    <a target="_blank" href="$ethermineURL$address">$address</a>
+                    <a target="_blank" href="$etherchainURL$address">(etherchain.org)</a>
+                    <ul class="addressDataList">
 HEADER;
 
                 // Prepare and render the miner data for this address if it was active recently
@@ -68,37 +69,37 @@ HEADER;
                 
                     print <<< DATA
 
-                    <li>Unpaid ETH: $unpaidETH (\${$unpaidFiat} $primaryCurrency)</li>
-                    <li>Hashrate:
-                        <ul>
-                            <li>Current: $hashrateCurrent Mh/s ($valid shares)</li>
-                            <li>Reported: $hashrateReported Mh/s</li>
-                            <li>Average: $hashrateAverage Mh/s</li>
-                        </ul>
-                    </li>
-                    <li>ETH ($primaryCurrency) per
-                        <ul>
-                            <li>Week: $payrateETHWeek (\${$payrateUSDWeek})</li>
-                            <li>Month: $payrateETHMonth (\${$payrateUSDMonth})</li>
-                            <li>Year: $payrateETHYear (\${$payrateUSDYear})</li>
-                        </ul>
-                    </li>
-                    <li>Miner last seen: $lastSeen</li>
-                    <li>Last pool refresh: $lastRefresh</li>
-                </ul>
-            </div>
-            <div class="addressChart" id="{$name}ChartContainer"></div>
-        </div>      
+                        <li>Unpaid ETH: $unpaidETH (\${$unpaidFiat} $primaryCurrency)</li>
+                        <li>Hashrate:
+                            <ul>
+                                <li>Current: $hashrateCurrent Mh/s ($valid shares)</li>
+                                <li>Reported: $hashrateReported Mh/s</li>
+                                <li>Average: $hashrateAverage Mh/s</li>
+                            </ul>
+                        </li>
+                        <li>ETH ($primaryCurrency) per
+                            <ul>
+                                <li>Week: $payrateETHWeek (\${$payrateUSDWeek})</li>
+                                <li>Month: $payrateETHMonth (\${$payrateUSDMonth})</li>
+                                <li>Year: $payrateETHYear (\${$payrateUSDYear})</li>
+                            </ul>
+                        </li>
+                        <li>Miner last seen: $lastSeen</li>
+                        <li>Last pool refresh: $lastRefresh</li>
+                    </ul>
+                </div>
+                <div class="addressChart" id="{$name}ChartContainer"></div>
+            </div>      
 DATA;
                     renderAddressChart($conn, $record);
                 }
                 else { // Render the nodata item if the miner hasn't been active recently
                     print <<< NODATA
 
-                    <li id="nodata">No Data</li>
-                </ul>
+                        <li id="nodata">No Data</li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
 NODATA;
                 }
@@ -107,6 +108,7 @@ NODATA;
 
         // Close container div
         print <<< BottomDiv
+        </div>
     </div>
 
 BottomDiv;
